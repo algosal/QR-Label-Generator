@@ -6,7 +6,16 @@ import "./ProductLabels.css"; // Import the CSS file
 import { fetchProductData } from "../services/productService";
 
 const ProductLabels = () => {
-  let [labelsArray, setLabelsArray] = useState([]);
+  let initalStateOfArray = [
+    {
+      VariationID: "1",
+      Name: "Moonlight Hash - Small",
+      Serial_Number: "7256260006",
+      Price: "25.00",
+    },
+  ];
+
+  let [labelsArray, setLabelsArray] = useState(initalStateOfArray);
 
   useEffect(() => {
     fetchProductData().then((d) => setLabelsArray(d));
