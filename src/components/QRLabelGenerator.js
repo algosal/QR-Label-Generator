@@ -2,6 +2,7 @@ import React from "react";
 import { PDFDocument } from "pdf-lib";
 import { saveAs } from "file-saver";
 import QRCode from "qrcode";
+import "./QRLabelGenerator.css"; // Import the CSS file
 
 const generatePDF = async (label) => {
   const pdfDoc = await PDFDocument.create();
@@ -34,6 +35,7 @@ const generatePDF = async (label) => {
       productName: label.productName,
       price: label.price,
       serial: label.serial,
+      owner: "Owned by Silos to Sidewalks Inc.",
     })
   );
 
@@ -82,7 +84,11 @@ const generatePDF = async (label) => {
 };
 
 const QRLabelGenerator = ({ label }) => {
-  return <button onClick={() => generatePDF(label)}>Generate PDF</button>;
+  return (
+    <button className="generate-button" onClick={() => generatePDF(label)}>
+      Generate PDF
+    </button>
+  );
 };
 
 export default QRLabelGenerator;

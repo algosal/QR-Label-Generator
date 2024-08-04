@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import QRCode from "qrcode.react";
 import QRLabelGenerator from "./QRLabelGenerator";
-import "./ProductLabels.css"; // Import the CSS file
 
 const ProductLabels = () => {
   const labels = [
@@ -49,15 +48,23 @@ const ProductLabels = () => {
   const label = labels[currentIndex];
 
   return (
-    <div className="product-labels-container">
-      <div className="product-label">
-        <QRCode value={label.Serial_Number} size={150} />
-        <div className="label-text">Product ID: {label.VariationID}</div>
-        <div className="label-text">Name: {label.Name}</div>
-        <div className="label-text">Price: ${label.Price}</div>
-        <div className="label-text">Serial: {label.Serial_Number}</div>
+    <div>
+      <div
+        style={{
+          textAlign: "center",
+          border: "1px solid #ccc",
+          padding: "10px",
+          width: "200px",
+          margin: "0 auto",
+        }}
+      >
+        <QRCode value={label.serial} size={150} />
+        <div>Product ID: {label.VariationID}</div>
+        <div>Name: {label.Name}</div>
+        <div>Price: ${label.Price}</div>
+        <div>Serial: {label.Serial_Number}</div>
       </div>
-      <div className="navigation-buttons">
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
         <button onClick={handlePrev} disabled={currentIndex === 0}>
           Back
         </button>
@@ -75,7 +82,6 @@ const ProductLabels = () => {
           price: label.Price,
           serial: label.Serial_Number,
         }}
-        className="generate-button"
       />
     </div>
   );
