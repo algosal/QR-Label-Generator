@@ -1,37 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QRCode from "qrcode.react";
 import QRLabelGenerator from "./QRLabelGenerator";
 import "./ProductLabels.css"; // Import the CSS file
+// import sampleData from "../services/data";
+import { fetchProductData } from "../services/productService";
 
 const ProductLabels = () => {
-  const labels = [
-    {
-      VariationID: "1",
-      Name: "some name",
-      Price: "25",
-      Serial_Number: "12345",
-    },
-    {
-      VariationID: "2",
-      Name: "another name",
-      Price: "30",
-      Serial_Number: "67890",
-    },
-    {
-      VariationID: "3",
-      Name: "third name",
-      Price: "35",
-      Serial_Number: "54321",
-    },
-    {
-      VariationID: "4",
-      Name: "fourth name",
-      Price: "40",
-      Serial_Number: "09876",
-    },
-    // Add more labels as needed
-  ];
+  let [labelsArray, setLabelsArray] = useState([]);
 
+  useEffect(() => {
+    fetchProductData().then((d) => setLabelsArray(d));
+  }, []);
+
+  const labels = labelsArray;
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
@@ -47,11 +28,17 @@ const ProductLabels = () => {
   };
 
   const label = labels[currentIndex];
-
+  let qrValue = JSON.stringify({
+    productId: label.VariationID,
+    productName: label.Name,
+    price: label.Price,
+    serial: label.Serial_Number,
+    owner: "Owned by Silos to Sidewalks Inc.",
+  });
   return (
     <div className="product-labels-container">
       <div className="product-label">
-        <QRCode value={label.Serial_Number} size={150} />
+        <QRCode value={qrValue} size={150} />
         <div className="label-text">Product ID: {label.VariationID}</div>
         <div className="label-text">Name: {label.Name}</div>
         <div className="label-text">Price: ${label.Price}</div>
