@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { fetchProductData } from "./services/productService";
-import QRGenerator from "./components/QRGenerator";
-import PDFGenerator from "./components/PDFGenerator";
+// src/App.js
+import React from "react";
+import QRLabelGenerator from "./components/QRLabelGenerator";
 
-const App = () => {
-  const [productData, setProductData] = useState("");
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await fetchProductData();
-        setProductData(data[0].QR_Code); // Adjust based on your data structure
-      } catch (error) {
-        console.error("Failed to fetch product data:", error);
-      }
-    };
-
-    getData();
-  }, []);
-
+function App() {
   return (
-    <div>
-      <h1>QR Code and PDF Label Generator</h1>
-      <QRGenerator data={productData} />
-      <PDFGenerator data={productData} />
+    <div className="App">
+      <h1>QR Code Labels Generator</h1>
+      <QRLabelGenerator />
     </div>
   );
-};
+}
 
 export default App;
