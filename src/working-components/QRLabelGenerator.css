@@ -36,15 +36,3 @@ button {
 button:hover {
   background-color: #ddd;
 }
-
-/* src/components/QRLabelGenerator.css */
-.qr-label-generator {
-  text-align: center;
-  margin: 20px;
-}
-.label-container {
-  margin: 20px;
-}
-.controls {
-  margin-top: 20px;
-}

@@ -22,21 +22,9 @@ const generatePDF = async (label) => {
   const topMargin = -70; // Top margin for the first row
 
   // Generate QR code with product ID included
-  // const qrCodeDataUrl = await QRCode.toDataURL(
-  //   JSON.stringify(
-  //     `{productId: ${label.productId}\nproductName: ${label.productName}\nprice: ${label.price}\nserial: ${label.serial}}`
-  //   )
-  // );
-
   const qrCodeDataUrl = await QRCode.toDataURL(
-    JSON.stringify({
-      productId: label.productId,
-      productName: label.productName,
-      price: label.price,
-      serial: label.serial,
-    })
+    `Product ID: ${label.productId}\nName: ${label.Name}\nPrice: ${label.price}\nSerial: ${label.serial}`
   );
-
   const qrImage = await pdfDoc.embedPng(qrCodeDataUrl);
 
   for (let i = 0; i < 30; i++) {
@@ -57,7 +45,7 @@ const generatePDF = async (label) => {
     const textY = y + margin + qrCodeSize / 2;
 
     // Draw product info without Product ID
-    page.drawText(`Name: ${label.productName}`, {
+    page.drawText(`Name: ${label.Name}`, {
       x: x + textXOffset,
       y: textY + 10, // Centered relative to the QR code
       size: 10,
